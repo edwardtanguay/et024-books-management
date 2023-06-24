@@ -1,7 +1,7 @@
 const PageAbout = () => {
   return (
-    <div>
-      about
+    <div className="container pt-28 ml-52">
+      This is the about page.
     </div>
   )
 }

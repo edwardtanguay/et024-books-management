@@ -2,8 +2,8 @@
 
 const PageContact = () => {
   return (
-    <div>
-      contact
+    <div className="container pt-28 ml-52">
+      This is the contact page.
     </div>
   )
 }
