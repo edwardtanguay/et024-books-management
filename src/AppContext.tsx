@@ -15,6 +15,7 @@ interface IApp {
 	getBook: (id: number) => IBook | undefined;
 	idBook: number;
 	setIdBook: (idBook: number) => void;
+	handleDeleteBook: (book: IBook) => void;
 }
 
 interface IAppProvider {
@@ -53,6 +54,28 @@ export const AppContextProvider: React.FC<IAppProvider> = ({ children }) => {
 		};
 		fetchData();
 	}, []);
+
+	const handleDeleteBook = (book: IBook) => {
+		(async () => {
+			try {
+				const response = await axios.delete(
+					`http://localhost:9000/books/${book.id}`
+				);
+        // only delete book from the frontend array if the backend indicates that that book was actually deleted from the JSON file 
+				if (response.status === 200) {
+					const _books = books.filter((m) => m.id !== book.id);
+					setBooks(_books);
+				}
+			} catch (err: unknown) {
+				if (err instanceof Error) {
+					console.log(err.message);
+				} else {
+					console.log('An unknown error occurred');
+				}
+			}
+		})();
+	};
+
 	return (
 		<AppContext.Provider
 			value={{
@@ -67,7 +90,8 @@ export const AppContextProvider: React.FC<IAppProvider> = ({ children }) => {
 				setFilter,
 				getBook,
 				idBook,
-				setIdBook
+				setIdBook,
+				handleDeleteBook
 			}}
 		>
 			{children}
