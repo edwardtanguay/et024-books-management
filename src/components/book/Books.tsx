@@ -2,8 +2,14 @@ import { useContext } from 'react';
 import { AiFillEye, AiFillEdit, AiFillDelete } from 'react-icons/ai';
 import { AppContext } from '../../AppContext';
 import { NavLink } from 'react-router-dom';
+import { IBook } from '../../interface';
 const Books = () => {
 	const { isLight, books, filter } = useContext(AppContext);
+
+	const handleDeleteBook = (book: IBook) => {
+		console.log(book.name);
+	};
+
 	return (
 		<>
 			{books
@@ -63,7 +69,10 @@ const Books = () => {
 							<span className="book-btn-icons bg-ORANGE">
 								<AiFillEdit />
 							</span>
-							<span className="book-btn-icons bg-RED">
+							<span
+								className="book-btn-icons bg-RED"
+								onClick={() => handleDeleteBook(book)}
+							>
 								<AiFillDelete />
 							</span>
 						</div>
